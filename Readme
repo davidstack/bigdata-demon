@@ -1,0 +1,27 @@
+本项目用于测试HDFS和Hbase功能
+打包：
+mvn dependency:copy-dependencies
+mvn package
+0、在Hadoop集群内获取配置文件 core-site.xml  habse-site.xml   hdfs-site.xml mapred-site.xml  ?如何获取
+
+2、执行docker build -t registry.iop.com:5000/bigdata/demon:latest .
+3、将镜像push到镜像仓库：docker push registry.iop.com:5000/bigdata/demon:latest
+4、将应用部署到Kubernetes集群 kubectl create -f deployment.yaml
+5、登录该应用，执行测试程序
+ 5.1  测试hdfs
+  windows test: 
+  java  -Djava.ext.dirs=lib/ -cp target/bigdata-0.0.1-SNAPSHOT.jar com.inspur.bigdata.hdfs.HdfsDemo createDir
+  
+   5.1.1 hdfs创建 /data/test 目录：   java  -Djava.ext.dirs=libs/ -cp bigdata-0.0.1-SNAPSHOT.jar com.inspur.bigdata.hdfs.HdfsDemo createDir
+   5.1.2 hdfs 创建文件/data/test/zhejiang.txt：   java  -Djava.ext.dirs=libs/ -cp bigdata-0.0.1-SNAPSHOT.jar com.inspur.bigdata.hdfs.HdfsDemo createFile
+   
+   5.1.3 hdfs 上传文件/root/test到目录/data/upload：  java  -Djava.ext.dirs=libs/ -cp bigdata-0.0.1-SNAPSHOT.jar com.inspur.bigdata.hdfs.HdfsDemo uploadFile
+   
+   5.1.4 删除目录  /data: java  -Djava.ext.dirs=libs/ -cp bigdata-0.0.1-SNAPSHOT.jar com.inspur.bigdata.hdfs.HdfsDemo deleteDir
+ 5.2 测试Hbase 
+    5.2.1 创建表：java  -Djava.ext.dirs=libs/ -cp bigdata-0.0.1-SNAPSHOT.jar com.inspur.bigdata.hbase.HbaseDemo create
+    5.2.2 插入数据： java  -Djava.ext.dirs=libs/ -cp bigdata-0.0.1-SNAPSHOT.jar com.inspur.bigdata.hbase.HbaseDemo insert
+    5.2.3 scan数据： java  -Djava.ext.dirs=libs/ -cp bigdata-0.0.1-SNAPSHOT.jar com.inspur.bigdata.hbase.HbaseDemo scan
+    5.2.4 删除行： java  -Djava.ext.dirs=libs/ -cp bigdata-0.0.1-SNAPSHOT.jar com.inspur.bigdata.hbase.HbaseDemo deleteRow
+    5.2.5 删除表： java  -Djava.ext.dirs=libs/ -cp bigdata-0.0.1-SNAPSHOT.jar com.inspur.bigdata.hbase.HbaseDemo delete
+镜像仓库镜像:registry.iop.com:5000/bigdata/demon:base
