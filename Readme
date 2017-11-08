@@ -1,6 +1,6 @@
 本项目用于测试HDFS和Hbase功能
 打包：
-mvn dependency:copy-dependencies
+#mvn dependency:copy-dependencies 获取项目的依赖jar
 mvn package
 0、在Hadoop集群内获取配置文件 core-site.xml  habse-site.xml   hdfs-site.xml mapred-site.xml  ?如何获取
 

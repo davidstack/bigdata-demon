@@ -11,11 +11,6 @@
     </property>
     
     <property>
-      <name>dfs.block.local-path-access.user</name>
-      <value>gpadmin</value>
-    </property>
-    
-    <property>
       <name>dfs.blockreport.initialDelay</name>
       <value>120</value>
     </property>
@@ -23,6 +18,11 @@
     <property>
       <name>dfs.blocksize</name>
       <value>134217728</value>
+    </property>
+    
+    <property>
+      <name>dfs.client.failover.proxy.provider.mycluster</name>
+      <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
     </property>
     
     <property>
@@ -43,11 +43,6 @@
     <property>
       <name>dfs.client.use.datanode.hostname</name>
       <value>true</value>
-    </property>
-    
-    <property>
-      <name>dfs.client.use.legacy.blockreader.local</name>
-      <value>false</value>
     </property>
     
     <property>
@@ -72,7 +67,7 @@
     
     <property>
       <name>dfs.datanode.data.dir</name>
-      <value>/hadoop/hdfs/data</value>
+      <value>/mnt/vol1/data,/mnt/vol2/data,/mnt/vol3/data</value>
       <final>true</final>
     </property>
     
@@ -83,18 +78,13 @@
     
     <property>
       <name>dfs.datanode.du.reserved</name>
-      <value>3946188800</value>
+      <value>0</value>
     </property>
     
     <property>
       <name>dfs.datanode.failed.volumes.tolerated</name>
       <value>0</value>
       <final>true</final>
-    </property>
-    
-    <property>
-      <name>dfs.datanode.handler.count</name>
-      <value>60</value>
     </property>
     
     <property>
@@ -114,7 +104,7 @@
     
     <property>
       <name>dfs.datanode.max.transfer.threads</name>
-      <value>16384</value>
+      <value>1024</value>
     </property>
     
     <property>
@@ -130,6 +120,26 @@
     <property>
       <name>dfs.encrypt.data.transfer.cipher.suites</name>
       <value>AES/CTR/NoPadding</value>
+    </property>
+    
+    <property>
+      <name>dfs.encryption.key.provider.uri</name>
+      <value></value>
+    </property>
+    
+    <property>
+      <name>dfs.ha.automatic-failover.enabled</name>
+      <value>true</value>
+    </property>
+    
+    <property>
+      <name>dfs.ha.fencing.methods</name>
+      <value>shell(/bin/true)</value>
+    </property>
+    
+    <property>
+      <name>dfs.ha.namenodes.mycluster</name>
+      <value>nn1,nn2</value>
     </property>
     
     <property>
@@ -150,6 +160,11 @@
     <property>
       <name>dfs.https.port</name>
       <value>50470</value>
+    </property>
+    
+    <property>
+      <name>dfs.internal.nameservices</name>
+      <value>mycluster</value>
     </property>
     
     <property>
@@ -213,6 +228,11 @@
     </property>
     
     <property>
+      <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+      <value>false</value>
+    </property>
+    
+    <property>
       <name>dfs.namenode.fslock.fair</name>
       <value>false</value>
     </property>
@@ -223,9 +243,13 @@
     </property>
     
     <property>
-      <name>dfs.namenode.http-address</name>
-      <value>hd205:50070</value>
-      <final>true</final>
+      <name>dfs.namenode.http-address.mycluster.nn1</name>
+      <value>cluster2-agent-0.cluster2-agent.bigdata.svc.cluster.local:50070</value>
+    </property>
+    
+    <property>
+      <name>dfs.namenode.http-address.mycluster.nn2</name>
+      <value>cluster2-agent-1.cluster2-agent.bigdata.svc.cluster.local:50070</value>
     </property>
     
     <property>
@@ -234,13 +258,18 @@
     </property>
     
     <property>
-      <name>dfs.namenode.https-address</name>
-      <value>hd205:50470</value>
+      <name>dfs.namenode.https-address.mycluster.nn1</name>
+      <value>cluster2-agent-0.cluster2-agent.bigdata.svc.cluster.local:50470</value>
+    </property>
+    
+    <property>
+      <name>dfs.namenode.https-address.mycluster.nn2</name>
+      <value>cluster2-agent-1.cluster2-agent.bigdata.svc.cluster.local:50470</value>
     </property>
     
     <property>
       <name>dfs.namenode.name.dir</name>
-      <value>/hadoop/hdfs/namenode</value>
+      <value>/mnt/vol1/namenode</value>
       <final>true</final>
     </property>
     
@@ -250,8 +279,13 @@
     </property>
     
     <property>
-      <name>dfs.namenode.rpc-address</name>
-      <value>hd205:8020</value>
+      <name>dfs.namenode.rpc-address.mycluster.nn1</name>
+      <value>cluster2-agent-0.cluster2-agent.bigdata.svc.cluster.local:8020</value>
+    </property>
+    
+    <property>
+      <name>dfs.namenode.rpc-address.mycluster.nn2</name>
+      <value>cluster2-agent-1.cluster2-agent.bigdata.svc.cluster.local:8020</value>
     </property>
     
     <property>
@@ -261,17 +295,22 @@
     
     <property>
       <name>dfs.namenode.safemode.threshold-pct</name>
-      <value>1</value>
+      <value>0.999</value>
     </property>
     
     <property>
       <name>dfs.namenode.secondary.http-address</name>
-      <value>hd206:50090</value>
+      <value>localhost:50090</value>
     </property>
     
     <property>
       <name>dfs.namenode.servicerpc-bind-host</name>
       <value>0.0.0.0</value>
+    </property>
+    
+    <property>
+      <name>dfs.namenode.shared.edits.dir</name>
+      <value>qjournal://cluster2-agent-0.cluster2-agent.bigdata.svc.cluster.local:8485;cluster2-agent-1.cluster2-agent.bigdata.svc.cluster.local:8485;cluster2-agent-2.cluster2-agent.bigdata.svc.cluster.local:8485/mycluster</value>
     </property>
     
     <property>
@@ -287,6 +326,11 @@
     <property>
       <name>dfs.namenode.write.stale.datanode.ratio</name>
       <value>1.0f</value>
+    </property>
+    
+    <property>
+      <name>dfs.nameservices</name>
+      <value>mycluster</value>
     </property>
     
     <property>
